@@ -1,0 +1,1 @@
+In this module, you will learn about the components of 5G infrastructure, including the core network, radio access network, and edge computing. You will also explore the security implications of these components and how to secure them effectively.

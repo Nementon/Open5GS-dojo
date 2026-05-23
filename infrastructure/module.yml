@@ -1,0 +1,7 @@
+id: 5G-infrastructure-dojo
+name: 5G Infrastructure Dojo
+challenges:
+  - id: open5gs
+    name: Open5GS
+  - id: free5gc
+    name: Free5GC
