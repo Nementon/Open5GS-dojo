@@ -1,0 +1,139 @@
+services:
+  mongodb:
+    image: ubuntu:24.04
+    hostname: mongodb
+    command: ["/bin/sh", "-c", "sleep infinity"]
+    networks:
+      - open5gs
+
+  nrf:
+    image: ubuntu:24.04
+    hostname: nrf
+    command: ["/bin/sh", "-c", "sleep infinity"]
+    depends_on:
+      - mongodb
+    networks:
+      - open5gs
+
+  scp:
+    image: ubuntu:24.04
+    hostname: scp
+    command: ["/bin/sh", "-c", "sleep infinity"]
+    depends_on:
+      - nrf
+    networks:
+      - open5gs
+
+  amf:
+    image: ubuntu:24.04
+    hostname: amf
+    command: ["/bin/sh", "-c", "sleep infinity"]
+    depends_on:
+      - nrf
+    networks:
+      - open5gs
+
+  smf:
+    image: ubuntu:24.04
+    hostname: smf
+    command: ["/bin/sh", "-c", "sleep infinity"]
+    depends_on:
+      - nrf
+      - upf
+    networks:
+      - open5gs
+
+  upf:
+    image: ubuntu:24.04
+    hostname: upf
+    command: ["/bin/sh", "-c", "sleep infinity"]
+    depends_on:
+      - nrf
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    networks:
+      - open5gs
+
+  ausf:
+    image: ubuntu:24.04
+    hostname: ausf
+    command: ["/bin/sh", "-c", "sleep infinity"]
+    depends_on:
+      - nrf
+    networks:
+      - open5gs
+
+  udm:
+    image: ubuntu:24.04
+    hostname: udm
+    command: ["/bin/sh", "-c", "sleep infinity"]
+    depends_on:
+      - nrf
+      - udr
+    networks:
+      - open5gs
+
+  udr:
+    image: ubuntu:24.04
+    hostname: udr
+    command: ["/bin/sh", "-c", "sleep infinity"]
+    depends_on:
+      - mongodb
+      - nrf
+    networks:
+      - open5gs
+
+  pcf:
+    image: ubuntu:24.04
+    hostname: pcf
+    command: ["/bin/sh", "-c", "sleep infinity"]
+    depends_on:
+      - nrf
+      - mongodb
+    networks:
+      - open5gs
+
+  nssf:
+    image: ubuntu:24.04
+    hostname: nssf
+    command: ["/bin/sh", "-c", "sleep infinity"]
+    depends_on:
+      - nrf
+    networks:
+      - open5gs
+
+  bsf:
+    image: ubuntu:24.04
+    hostname: bsf
+    command: ["/bin/sh", "-c", "sleep infinity"]
+    depends_on:
+      - nrf
+    networks:
+      - open5gs
+
+  webui:
+    image: ubuntu:24.04
+    hostname: webui
+    command: ["/bin/sh", "-c", "sleep infinity"]
+    depends_on:
+      - mongodb
+    networks:
+      - open5gs
+
+  gnb:
+    image: ubuntu:24.04
+    hostname: gnb
+    command: ["/bin/sh", "-c", "sleep infinity"]
+    depends_on:
+      - amf
+      - upf
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    networks:
+      - open5gs
+
+networks:
+  open5gs:
+    driver: bridge
